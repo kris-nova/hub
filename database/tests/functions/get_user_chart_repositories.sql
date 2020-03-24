@@ -11,7 +11,7 @@ values (:'user1ID', 'user1', 'user1@email.com');
 
 -- No repositories at this point
 select is(
-    get_chart_repositories_by_user(:'user1ID')::jsonb,
+    get_user_chart_repositories(:'user1ID')::jsonb,
     '[]'::jsonb,
     'With no repositories an empty json array is returned'
 );
@@ -61,7 +61,7 @@ insert into chart_repository (
 
 -- Some repositories have just been seeded
 select is(
-    get_chart_repositories_by_user(:'user1ID')::jsonb,
+    get_user_chart_repositories(:'user1ID')::jsonb,
     '[{
         "chart_repository_id": "00000000-0000-0000-0000-000000000001",
         "name": "repo1",
@@ -80,7 +80,7 @@ select is(
     'Repositories belonging to user provided are returned as a json array of objects'
 );
 select is(
-    get_chart_repositories_by_user(null)::jsonb,
+    get_user_chart_repositories(null)::jsonb,
     '[]'::jsonb,
     'Repositories not belonging to any user are not returned'
 );
